@@ -14,11 +14,12 @@ function WelcomeScreen({ navigation }) {
     >
       <View style={styles.logoContainer}>
         <Image source={require("../assets/logo-red.png")} />
+
         <Text style={styles.tagline}>Welcome Back!</Text>
-      </View>
-      <View style={styles.user}>
-      <Image style={styles.userPic} source={require("../assets/JohnDoe.jpg")} />
-      <Text style={styles.userName}>John Doe</Text>
+          <View style={styles.user}>
+            <Image style={styles.userPic} source={require("../assets/JohnDoe.jpg")} />
+            <Text style={styles.userName}>John Doe</Text>
+          </View>
       </View>
 
       <View style={styles.buttonsContainer}>
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "600",
     paddingVertical: 20,
-    marginTop:20,
+    
   },
   user:{
     flexDirection:"row",
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
     width:70,
     height:70,
     borderRadius: 35,
-  }
+  },
+ 
 });
 
 export default WelcomeScreen;

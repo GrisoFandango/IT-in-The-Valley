@@ -24,6 +24,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "IT in the Valley, photographer use case for the Element 1 assignment. "
+    "description": "IT in the Valley, photographer use case for the Element 1 assignment. ",
+    "githubUrl": "https://github.com/GrisoFandango/IT-in-The-Valley"
   }
 }
