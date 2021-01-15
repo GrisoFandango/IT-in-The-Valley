@@ -30,10 +30,9 @@ function ListingEditScreen() {
           title: "",
           price: "",
           description: "",
-          category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />
