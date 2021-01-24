@@ -1,61 +1,49 @@
-import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import {  FlatList, StyleSheet, } from "react-native";
 
+import ActivityIndicator from "../components/ActivityIndicator"
+import AppText from "../components/Text"
+import Button from "../components/Button"
 import Card from "../components/Card";
 import colors from "../config/colors";
+import listingsApi from "../api/listings"
 import routes from "../navigation/routes";
 import Screen from "../components/Screen";
 
-const listings = [
-  {
-    id: 1,
-    title: "Silicon Valley",
-    price: 100,
-    image: require("../assets/SiliconValley.jpg"),
-    status: "Submitted",
-    description:"Bird view of the Silicon Valley Ring"
-  },
-  {
-    id: 2,
-    title: "Bill Gates",
-    price: 200,
-    image: require("../assets/billgates.jpg"),
-    status: "Archived",
-    description:"Picture of Bill Gates"
 
-  },
-  {
-    id: 3,
-    title: "Qualcomm HQ",
-    price: 50,
-    image: require("../assets/qualcomm.jpg"),
-    status: "Published",
-    description:"Qualcomm HQ during the presentation of the new chipset"
-
-  },
-  {
-    id: 4,
-    title: "Google Party",
-    price: 100,
-    image: require("../assets/googleparty.jpg"),
-    status: "Published and Paid",
-    description:"Party at google office to welcome the new interns"
-
-  },
-  {
-    id: 5,
-    title: "Facebook quarterly meeting",
-    price: 500,
-    image: require("../assets/facebookmeeting.jpg"),
-    status: "Submitted",
-    description:"Shareholders meeting for the quarterly financial report"
-
-  },
-];
 
 function ListingsScreen({ navigation }) {
+
+  const [listings, setListings] = useState([])
+  const [error, setError] = useState(false)
+  const [loading,setLoading] = useState(false)
+
+
+  useEffect(() => {
+    loadListings();
+  },[]);
+  
+  const loadListings = async () =>{
+
+    setLoading(true)
+    const response = await listingsApi.getListings();
+    setLoading(false)
+
+    if (!response.ok) return setError(true);
+    
+    setError(false);
+    setListings(response.data)
+  };
+
   return (
+    
     <Screen style={styles.screen}>
+      {error && (<>
+        <AppText> Could not retrieve the listings</AppText>
+        <Button title="Retry" onPress={loadListings} />
+      </>
+      )}
+      <ActivityIndicator visible={loading} />
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
@@ -63,7 +51,7 @@ function ListingsScreen({ navigation }) {
           <Card
             title={item.title}
             subTitle={"$" + item.price}
-            image={item.image}
+            imageUrl={item.images[0].url}
             status={item.status}
             description={item.description}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
