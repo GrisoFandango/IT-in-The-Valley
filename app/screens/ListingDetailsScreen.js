@@ -3,13 +3,16 @@ import { View, Image, StyleSheet } from "react-native";
 
 import colors from "../config/colors";
 import Text from "../components/Text";
+import Button from "../components/Button"
+import routes from "../navigation/routes"
 
-function ListingDetailsScreen({ route }) {
+
+function ListingDetailsScreen({ route, navigation }) {
   const listing = route.params;
 
   return (
     <View>
-      <Image style={styles.image} source={listing.image} />
+      <Image style={styles.image} source={{uri:listing.images[0].url}} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.price}>${listing.price}</Text>
@@ -18,11 +21,13 @@ function ListingDetailsScreen({ route }) {
 
         <View style={styles.userContainer}>
           
+
+          
         </View>
       </View>
     </View>
   );
-}
+} 
 
 const styles = StyleSheet.create({
   detailsContainer: {

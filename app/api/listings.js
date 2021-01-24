@@ -24,7 +24,11 @@ const addListings = (listing, onUploadProgress) => {
 
 }
 
+
+
+
 export default {
     addListings,
     getListings,
+    
 }
